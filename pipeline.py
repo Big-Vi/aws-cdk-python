@@ -202,7 +202,7 @@ class Pipeline(Stack):
             synth=synth_codebuild_step,
         )
 
-        self._add_prod_stage(codepipeline)
+        # self._add_prod_stage(codepipeline)
 
     @staticmethod
     def _get_cdk_cli_version() -> str:

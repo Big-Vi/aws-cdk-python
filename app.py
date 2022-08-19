@@ -23,12 +23,12 @@ app = cdk.App()
 # pipeline.node.add_dependency(ecs_stack)
 
 # Development
-UserManagementBackend(
-    app,
-    f"{constants.CDK_APP_NAME}-Dev",
-    env=constants.DEV_ENV,
-    instance_type=constants.DEV_DATABASE_INSTANCE_TYPE,
-)
+# UserManagementBackend(
+#     app,
+#     f"{constants.CDK_APP_NAME}-Dev",
+#     env=constants.DEV_ENV,
+#     instance_type=constants.DEV_DATABASE_INSTANCE_TYPE,
+# )
 
 # Production pipeline
 Pipeline(app, f"{constants.CDK_APP_NAME}-Pipeline", env=constants.PIPELINE_ENV)
