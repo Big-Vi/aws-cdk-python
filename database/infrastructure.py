@@ -22,27 +22,27 @@ class Database(Construct):
 
         vpc = ec2.Vpc.from_lookup(
             self, "VPC",
-            vpc_id="vpc-0a2eb88f37dd4d313",
+            vpc_id="<vpc-id>",
         )
 
         vpc_subnets = ec2.SubnetSelection(
             subnets=[
                 ec2.Subnet.from_subnet_id(
-                    self, "subnet1", "subnet-025da55a2ea069297"),
+                    self, "subnet1", "<subnet-id-1>"),
                 ec2.Subnet.from_subnet_id(
-                    self, "subnet2", "subnet-090a11611b7237db6")
+                    self, "subnet2", "<subnet-id-2>")
             ]
         )
 
         security_group = ec2.SecurityGroup.from_lookup_by_id(
-            self, "SG", "sg-0cf6eb022d5597677")
+            self, "SG", "<security-group-id>")
 
         # db_secret = Secret.from_secret_name_v2(
         #     self, "DBSecret", "prod/php-app")
 
         dbInstance = rds.DatabaseInstance(
             self, "RDS",
-            database_name="php_ci_cd",
+            database_name="<database-name>",
             engine=rds.DatabaseInstanceEngine.mysql(
                 version=rds.MysqlEngineVersion.VER_5_7_37
             ),
@@ -50,11 +50,10 @@ class Database(Construct):
             vpc_subnets=vpc_subnets,
             security_groups=[security_group],
             port=3306,
-            instance_type=instance_type,
-            # instance_type=ec2.InstanceType.of(
-            #     ec2.InstanceClass.BURSTABLE3,
-            #     ec2.InstanceSize.MICRO
-            # ),
+            instance_type=ec2.InstanceType.of(
+                ec2.InstanceClass.BURSTABLE3,
+                ec2.InstanceSize.MICRO
+            ),
             credentials=rds.Credentials.from_generated_secret("admin"),
             publicly_accessible=True,
             removal_policy=RemovalPolicy.DESTROY,

@@ -15,20 +15,20 @@ class EcsCluster(Stack):
 
         vpc = ec2.Vpc.from_lookup(
             self, "VPC",
-            vpc_id="vpc-0a2eb88f37dd4d313",
+            vpc_id="<vpc-id>",
         )
 
         vpc_subnets = ec2.SubnetSelection(
             subnets=[
                 ec2.Subnet.from_subnet_id(
-                    self, "subnet1", "subnet-025da55a2ea069297"),
+                    self, "subnet1", "<subnet-id-1>"),
                 ec2.Subnet.from_subnet_id(
-                    self, "subnet2", "subnet-090a11611b7237db6")
+                    self, "subnet2", "<subnet-id-2>")
             ]
         )
 
         security_group = ec2.SecurityGroup.from_lookup_by_id(
-            self, "SG", "sg-0cf6eb022d5597677")
+            self, "SG", "<security-group-id>")
 
         self.cluster = ecs.Cluster(
             self, 'EcsCluster',
@@ -62,7 +62,7 @@ class EcsCluster(Stack):
             "php",
             # Use an image from ECR
             image=ecs.ContainerImage.from_registry(
-                "090426658505.dkr.ecr.ap-southeast-2.amazonaws.com/php:latest"),
+                "<account-id>.dkr.ecr.<region>.amazonaws.com/php:latest"),
             port_mappings=[ecs.PortMapping(container_port=80)],
             secrets=secrets,
             logging=ecs.LogDrivers.aws_logs(stream_prefix="ecs"),
